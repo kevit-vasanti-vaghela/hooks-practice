@@ -1,57 +1,24 @@
-import { useReducer, useState } from "react";
-import Todo from "./Todo";
+import React ,{ useState } from "react";
+import FunctionalContextComponent from "./FunctionalContextComponent";
 
-export const ACTIONS = {
-  ADD_TODO: 'add_todo',
-  TOGGLE_TODO: 'toggle_todo',
-  DELETE_TODO: 'delete_todo'
-}
 
-function reducer(todos, action) {
-  switch (action.type) {
-    case ACTIONS.ADD_TODO:
-      return [...todos, newTodo(action.payload.name)]
-    case ACTIONS.TOGGLE_TODO: 
-      return todos.map(todo => {
-        if (todo.id === action.payload.id) {
-          return {...todo, complete: !todo.complete }
-        }
-        return todo
-      })
-    case ACTIONS.DELETE_TODO:
-      return todos.filter(todo => {
-        return todo.id !== action.payload.id
-      })
-    default:
-      return todos
-  }
-}  
-
-function newTodo(name) {
-  return { id: Date.now(), name: name, complete: false }
-}
+export const ThemeContext = React.createContext()
 
 function App() {
-const [todos, dispatch] = useReducer(reducer, [])
-const [ name, setName ] = useState('')
+const [darkTheme, setdarkTheme] = useState(true)
 
-function handleSubmit(e) {
-  e.preventDefault()
-  dispatch({ type: ACTIONS.ADD_TODO, payload: { name: name } })
-  setName('')
+function toggleTheme() {
+  setdarkTheme(prevDarkTheme => !prevDarkTheme)
 }
 
-console.log(todos)
 
   return (
     <>
-      <h2 style={{ textAlign: 'center'}}>useReducer Hook</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={name} onChange={e => setName(e.target.value)} />
-      </form>
-      {todos.map(todo => {
-        return <Todo key={todo.id} todo={todo}  dispatch={dispatch} />
-      })}    
+      <ThemeContext.Provider value={darkTheme}>
+        <h2 style={{ textAlign: 'center' }}>useContext Hook</h2>
+        <button onClick={toggleTheme}>Toggle Theme</button>
+        <FunctionalContextComponent  />
+      </ThemeContext.Provider>
     </>
   );
 }
