@@ -1,8 +1,8 @@
-import React from "react";
-import { useTheme, useThemeUpdate } from './ThemeContext'
+import React, { useContext } from "react";
+import ThemeContext from "./ThemeContext";
+
 export default function FunctionalContextComponent() {
-    const darkTheme = useTheme()
-    const toggleTheme = useThemeUpdate()
+    const { darkTheme, toggleTheme} = useContext(ThemeContext)
     const themeStyles = {
         backgroundColor: darkTheme ? '#333' : '#ccc',
         color: darkTheme ? '#ccc' : '#333',

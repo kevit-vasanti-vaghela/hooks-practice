@@ -1,4 +1,4 @@
-import React ,{ useState } from "react";
+import React  from "react";
 import FunctionalContextComponent from "./FunctionalContextComponent";
 import { ThemeProvider } from "./ThemeContext";
 
