@@ -20,3 +20,9 @@ input {
   margin-left: 2rem;
   font-size: 2.5rem;
 }
+
+div {
+  width: 400px;
+  text-align: center;
+  font-size: 2rem;
+}
